@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            display: block;
+            margin: 50px auto;
+            /* border: 1px solid #000; */
+            background: url(./stella.bmp);
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <canvas></canvas>
+    <script>
+        var canvas = document.querySelector('canvas');
+        canvas.width = 512;
+        canvas.height = 288;
+        var ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#ccc';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.globalCompositeOperation = 'destination-out';
+
+        var isDown = false;
+        canvas.addEventListener('mousedown', function(e) {
+            isDown = true;
+            ctx.lineWidth = 10;
+            ctx.beginPath();
+            ctx.moveTo(e.offsetX, e.offsetY);
+        });
+        canvas.addEventListener('mousemove', function(e) {
+            if(isDown) {
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+            }
+            return;
+        });
+        canvas.addEventListener('mouseup', function() {
+            isDown = false;
+        });
+    </script>
+</body>
+</html>
