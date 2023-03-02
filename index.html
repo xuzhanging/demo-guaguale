@@ -8,7 +8,7 @@
     <style>
         canvas {
             display: block;
-            margin: 50px auto;
+            margin: 5vw auto;
             /* border: 1px solid #000; */
             background: url(./stella.bmp);
             background-size: cover;
@@ -16,11 +16,11 @@
     </style>
 </head>
 <body>
-    <canvas></canvas>
+    <canvas width="256vw" height="144vw"></canvas>
     <script>
         var canvas = document.querySelector('canvas');
-        canvas.width = 512;
-        canvas.height = 288;
+        // canvas.width = 512;
+        // canvas.height = 288;
         var ctx = canvas.getContext('2d');
         ctx.fillStyle = '#ccc';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -52,12 +52,12 @@
             isDown = true;
             ctx.lineWidth = 10;
             ctx.beginPath();
-            ctx.moveTo(e.targetTouches[0].clientX, e.targetTouches[0].clientY);
+            ctx.moveTo(e.targetTouches[0].clientX - canvas.offsetLeft, e.targetTouches[0].clientY - canvas.offsetTop);
         });
         canvas.addEventListener('touchmove', function(e) {
             // console.log('move');
             if(isDown) {
-                ctx.lineTo(e.targetTouches[0].clientX, e.targetTouches[0].clientY);
+                ctx.lineTo(e.targetTouches[0].clientX - canvas.offsetLeft, e.targetTouches[0].clientY - canvas.offsetTop);
                 ctx.stroke();
             }
             return;
