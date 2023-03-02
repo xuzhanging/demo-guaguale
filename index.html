@@ -29,6 +29,7 @@
 
         var isDown = false;
         canvas.addEventListener('mousedown', function(e) {
+            // console.log(e.offsetX, e.offsetY);
             isDown = true;
             ctx.lineWidth = 10;
             ctx.beginPath();
@@ -42,6 +43,27 @@
             return;
         });
         canvas.addEventListener('mouseup', function() {
+            isDown = false;
+        });
+        canvas.addEventListener('touchstart', function(e) {
+            // console.log('start');
+            // console.log(e);
+            // console.log(e.targetTouches[0].clientX, e.targetTouches[0].clientY);
+            isDown = true;
+            ctx.lineWidth = 10;
+            ctx.beginPath();
+            ctx.moveTo(e.targetTouches[0].clientX, e.targetTouches[0].clientY);
+        });
+        canvas.addEventListener('touchmove', function(e) {
+            // console.log('move');
+            if(isDown) {
+                ctx.lineTo(e.targetTouches[0].clientX, e.targetTouches[0].clientY);
+                ctx.stroke();
+            }
+            return;
+        });
+        canvas.addEventListener('touchend', function() {
+            // console.log('end');
             isDown = false;
         });
     </script>
